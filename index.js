@@ -1,6 +1,6 @@
 const app = require('./app');
 require('dotenv').config();
-//LESGÔ
+// LESGÔ
 
 // não altere esse arquivo, essa estrutura é necessária para à avaliação do projeto
 
