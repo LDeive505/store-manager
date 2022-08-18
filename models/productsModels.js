@@ -23,10 +23,13 @@ const create = async (name) => {
 };
 
 const update = async (id, name) => {
-  console.log('??');
   await connection.execute('UPDATE StoreManager.products SET name = ? WHERE id = ?', [name, id]);
-  console.log('ue');
   return { id, name };
+};
+
+const deleteById = async (id) => {
+  await connection.execute('DELETE FROM StoreManager.products WHERE id = ?', [id]);
+  return { id };
 };
 
 module.exports = {
@@ -35,4 +38,5 @@ module.exports = {
   getById,
   create,
   update,
+  deleteById,
 };
