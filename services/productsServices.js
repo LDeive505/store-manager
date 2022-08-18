@@ -14,6 +14,7 @@ const createProduct = async (name) => {
   const product = await productsModels.create(name);
   return product;
 };
+
 module.exports = {
   getProducts,
   getProductById,

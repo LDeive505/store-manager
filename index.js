@@ -1,6 +1,8 @@
 const app = require('./app');
 const productsControllers = require('./controllers/productsControllers');
 const productValidation = require('./middlewares/productValidation');
+const salesControllers = require('./controllers/salesControllers');
+const saleValidation = require('./middlewares/saleValidation');
 
 require('dotenv').config();
 
@@ -13,3 +15,5 @@ app.listen(process.env.PORT, () => {
 app.get('/products', productsControllers.getAllProducts);
 app.get('/products/:id', productsControllers.getProductById);
 app.post('/products', productValidation, productsControllers.createProduct);
+
+app.post('/sales', saleValidation, salesControllers.createSales);
