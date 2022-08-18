@@ -12,8 +12,10 @@ app.listen(process.env.PORT, () => {
   console.log(`Escutando na porta ${process.env.PORT}`);
 });
 
-app.get('/products', productsControllers.getAllProducts);
+app.get('/products', productsControllers.getProducts);
 app.get('/products/:id', productsControllers.getProductById);
 app.post('/products', productValidation, productsControllers.createProduct);
 
+app.get('/sales', salesControllers.getSales);
+app.get('/sales/:id', salesControllers.getSaleById);
 app.post('/sales', saleValidation, salesControllers.createSales);
