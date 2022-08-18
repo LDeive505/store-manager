@@ -1,4 +1,4 @@
-const saleValidation = async (req, res, next) => {
+const saleValidation = (req, res, next) => {
   const sales = req.body;
 
   const hasproductIds = sales.every((sale) => sale.productId);
