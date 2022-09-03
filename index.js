@@ -6,8 +6,6 @@ const saleValidation = require('./middlewares/saleValidation');
 
 require('dotenv').config();
 
-// não altere esse arquivo, essa estrutura é necessária para à avaliação do projeto
-
 app.listen(process.env.PORT, () => {
   console.log(`Escutando na porta ${process.env.PORT}`);
 });
@@ -21,3 +19,4 @@ app.delete('/products/:id', productsControllers.deleteProduct);
 app.get('/sales', salesControllers.getSales);
 app.get('/sales/:id', salesControllers.getSaleById);
 app.post('/sales', saleValidation, salesControllers.createSales);
+app.delete('/sales/:id', salesControllers.deleteSale);

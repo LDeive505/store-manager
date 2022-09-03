@@ -59,9 +59,20 @@ const create = async (sale) => {
   return result.insertId;
 };
 
+const deleteById = (id) => {
+  const result = connection.execute('DELETE FROM StoreManager.sales WHERE id = ?', [id]);
+  const result2 = connection.execute(
+    'DELETE FROM StoreManager.sales_products WHERE sale_id = ?',
+    [id],
+  );
+  if (!result || !result2) return null;
+  return { id };
+};
+
 module.exports = {
+  create,
   getAll,
   getById,
   getSalesIds,
-  create,
+  deleteById,
 };
