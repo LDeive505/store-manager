@@ -18,5 +18,6 @@ app.delete('/products/:id', productsControllers.deleteProduct);
 
 app.get('/sales', salesControllers.getSales);
 app.get('/sales/:id', salesControllers.getSaleById);
-app.post('/sales', saleValidation, salesControllers.createSales);
+app.post('/sales', saleValidation, salesControllers.createSale);
 app.delete('/sales/:id', salesControllers.deleteSale);
+app.put('/sales/:id', saleValidation, salesControllers.updateSale);

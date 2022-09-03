@@ -1,7 +1,7 @@
 const saleValidation = (req, res, next) => {
   const sales = req.body;
 
-  const hasproductIds = sales.every((sale) => sale.productId);
+  const hasproductIds = sales.every((sale) => sale.productId !== undefined);
   if (!hasproductIds) return res.status(400).json({ message: '"productId" is required' });
 
   const hasQuantities = sales.every((sale) => sale.quantity !== undefined);

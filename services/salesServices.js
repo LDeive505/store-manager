@@ -24,9 +24,25 @@ const createSale = async (sale) => {
   return { id, itemsSold: sale };
 };
 
+const updateSale = async (id, sale) => {
+  const searchedSale = await salesModels.getById(id);
+  if (searchedSale.length === 0) return null;
+
+  const productsId = await productsModels.getIds();
+
+  const existentIds = sale.every((product) =>
+    productsId.some(({ id: prodId }) => prodId === product.productId));
+  
+  if (!existentIds) return { message: 'Product not found' };
+
+  const updatedSale = await salesModels.update(id, sale);
+  return updatedSale;
+};  
+
 const deleteSale = async (id) => {
-  const sale = salesModels.getById(id);
-  if (!sale) return null;
+  const sale = await salesModels.getById(id);
+  console.log(sale);
+  if (sale.length === 0) return null;
   const deletedSale = await salesModels.deleteById(id);
   return deletedSale;
 };
@@ -35,5 +51,6 @@ module.exports = {
   getSales,
   getSaleById,
   createSale,
+  updateSale,
   deleteSale,
 };

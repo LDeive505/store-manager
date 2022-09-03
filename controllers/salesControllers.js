@@ -13,7 +13,7 @@ const getSaleById = async (req, res) => {
   return res.status(200).json(sale);
 };
 
-const createSales = async (req, res) => {
+const createSale = async (req, res) => {
   const sales = req.body;
   const newSale = await salesServices.createSale(sales);
 
@@ -27,12 +27,24 @@ const deleteSale = async (req, res) => {
   const sale = await salesServices.deleteSale(Number(id));
   if (!sale) return res.status(404).json({ message: 'Sale not found' });
 
-  return res.status(204);
+  return res.status(204).end();
+};
+
+const updateSale = async (req, res) => {
+  const { id } = req.params;
+  const sale = req.body;
+  const updatedSale = await salesServices.updateSale(Number(id), sale);
+
+  if (!updatedSale) return res.status(404).json({ message: 'Sale not found' });
+
+  if (updatedSale.message) return res.status(404).json({ message: 'Product not found' });
+  return res.status(200).json(updatedSale);
 };
 
 module.exports = {
-  createSales,
+  createSale,
   getSales,
   getSaleById,
+  updateSale,
   deleteSale,
 };
