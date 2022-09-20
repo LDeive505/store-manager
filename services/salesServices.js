@@ -41,7 +41,6 @@ const updateSale = async (id, sale) => {
 
 const deleteSale = async (id) => {
   const sale = await salesModels.getById(id);
-  console.log(sale);
   if (sale.length === 0) return null;
   const deletedSale = await salesModels.deleteById(id);
   return deletedSale;
