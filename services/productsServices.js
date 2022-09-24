@@ -10,6 +10,11 @@ const getProductById = async (id) => {
   return product;
 };
 
+const getProductByName = async (name) => {
+  const products = await productsModels.getByName(name);
+  return products;
+};
+
 const createProduct = async (name) => {
   const product = await productsModels.create(name);
   return product;
@@ -34,6 +39,7 @@ const deleteProduct = async (id) => {
 module.exports = {
   getProducts,
   getProductById,
+  getProductByName,
   createProduct,
   updateProduct,
   deleteProduct,

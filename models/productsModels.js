@@ -32,10 +32,17 @@ const deleteById = async (id) => {
   return { id };
 };
 
+const getByName = async (name) => {
+  const [result] = await connection
+    .execute('SELECT * FROM StoreManager.products WHERE name LIKE ?', [`%${name}%`]);
+  return result;
+};
+
 module.exports = {
   getAll,
   getIds,
   getById,
+  getByName,
   create,
   update,
   deleteById,
