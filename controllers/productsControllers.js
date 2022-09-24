@@ -1,46 +1,43 @@
 const productsServices = require('../services/productsServices');
+const { OK, CREATED, NO_CONTENT } = require('../errors/statusCodes');
 
 const getProducts = async (_req, res) => { 
   const products = await productsServices.getProducts();
-  return res.status(200).json(products);
+  return res.status(OK).json(products);
 };
 
 const getProductById = async (req, res) => {
   const { id } = req.params;
   const product = await productsServices.getProductById(id);
-  if (!product) return res.status(404).json({ message: 'Product not found' });
-  
-  return res.status(200).json(product);
+  return res.status(OK).json(product);
 };
 
 const createProduct = async (req, res) => {
   const { name } = req.body;
   const newProduct = await productsServices.createProduct(name);
-  return res.status(201).json(newProduct);
+  return res.status(CREATED).json(newProduct);
 };
 
 const updateProduct = async (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
   const updatedProduct = await productsServices.updateProduct(id, name);
-  if (!updatedProduct) return res.status(404).json({ message: 'Product not found' });
 
-  return res.status(200).json(updatedProduct);
+  return res.status(OK).json(updatedProduct);
 };
 
 const deleteProduct = async (req, res) => {
   const { id } = req.params;
-  const deletedProduct = await productsServices.deleteProduct(id);
-  if (!deletedProduct) return res.status(404).json({ message: 'Product not found' });
+  await productsServices.deleteProduct(id);
 
-  return res.status(204).end();
+  return res.status(NO_CONTENT).end();
 };
 
 const getProductByName = async (req, res) => {
   const { q: name } = req.query;
   console.log(name);
   const products = await productsServices.getProductByName(name);
-  return res.status(200).json(products);
+  return res.status(OK).json(products);
 };
 
 module.exports = {

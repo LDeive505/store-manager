@@ -1,32 +1,27 @@
 const salesServices = require('../services/salesServices');
+const { OK, CREATED } = require('../errors/statusCodes');
 
 const getSales = async (req, res) => {
   const sales = await salesServices.getSales();
-  return res.status(200).json(sales);
+  return res.status(OK).json(sales);
 };
 
 const getSaleById = async (req, res) => {
   const { id } = req.params;
   const sale = await salesServices.getSaleById(Number(id));
-  if (!sale) return res.status(404).json({ message: 'Sale not found' });
 
-  return res.status(200).json(sale);
+  return res.status(OK).json(sale);
 };
 
 const createSale = async (req, res) => {
   const sales = req.body;
   const newSale = await salesServices.createSale(sales);
-
-  if (newSale === false) return res.status(404).json({ message: 'Product not found' });
-
-  return res.status(201).json(newSale);
+  return res.status(CREATED).json(newSale);
 };
 
 const deleteSale = async (req, res) => {
   const { id } = req.params;
-  const sale = await salesServices.deleteSale(Number(id));
-  if (!sale) return res.status(404).json({ message: 'Sale not found' });
-
+  await salesServices.deleteSale(Number(id));
   return res.status(204).end();
 };
 
@@ -34,11 +29,7 @@ const updateSale = async (req, res) => {
   const { id } = req.params;
   const sale = req.body;
   const updatedSale = await salesServices.updateSale(Number(id), sale);
-
-  if (!updatedSale) return res.status(404).json({ message: 'Sale not found' });
-
-  if (updatedSale.message) return res.status(404).json({ message: 'Product not found' });
-  return res.status(200).json(updatedSale);
+  return res.status(OK).json(updatedSale);
 };
 
 module.exports = {

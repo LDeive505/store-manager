@@ -1,4 +1,6 @@
 const productsModels = require('../models/productsModels');
+const ApiError = require('../errors/ApiError');
+const { NOT_FOUND } = require('../errors/statusCodes');
 
 const getProducts = async () => {
   const products = await productsModels.getAll();
@@ -7,11 +9,13 @@ const getProducts = async () => {
 
 const getProductById = async (id) => {
   const product = await productsModels.getById(id);
+  if (!product) throw new ApiError('Product not found', NOT_FOUND);
   return product;
 };
 
 const getProductByName = async (name) => {
   const products = await productsModels.getByName(name);
+  if (!products) throw new ApiError('Product not found', NOT_FOUND);
   return products;
 };
 
@@ -22,7 +26,7 @@ const createProduct = async (name) => {
 
 const updateProduct = async (id, name) => {
   const product = await productsModels.getById(id);
-  if (!product) return null;
+  if (!product) throw new ApiError('Product not found', NOT_FOUND);
 
   const updatedProduct = await productsModels.update(id, name);
   return updatedProduct;
@@ -30,10 +34,8 @@ const updateProduct = async (id, name) => {
 
 const deleteProduct = async (id) => {
   const product = await productsModels.getById(id);
-  if (!product) return null;
-
-  const deletedProduct = await productsModels.deleteById(id);
-  return deletedProduct;
+  if (!product) throw new ApiError('Product not found', NOT_FOUND);
+  await productsModels.deleteById(id);
 };
 
 module.exports = {
