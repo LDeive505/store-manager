@@ -1,7 +1,7 @@
 const app = require('./app');
+const errorMiddleware = require('./middlewares/errorMiddleware');
 const productsRoute = require('./routes/productsRoute');
 const salesRoute = require('./routes/salesRoute');
-const errorMiddleware = require('./middlewares/errorMiddleware');
 
 require('dotenv').config();
 

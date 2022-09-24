@@ -9,13 +9,13 @@ const getProducts = async () => {
 
 const getProductById = async (id) => {
   const product = await productsModels.getById(id);
-  if (!product) throw new ApiError('Product not found', NOT_FOUND);
+  if (!product) throw new ApiError(NOT_FOUND, 'Product not found');
   return product;
 };
 
 const getProductByName = async (name) => {
   const products = await productsModels.getByName(name);
-  if (!products) throw new ApiError('Product not found', NOT_FOUND);
+  if (!products) throw new ApiError(NOT_FOUND, 'Product not found');
   return products;
 };
 
@@ -26,7 +26,7 @@ const createProduct = async (name) => {
 
 const updateProduct = async (id, name) => {
   const product = await productsModels.getById(id);
-  if (!product) throw new ApiError('Product not found', NOT_FOUND);
+  if (!product) throw new ApiError(NOT_FOUND, 'Product not found');
 
   const updatedProduct = await productsModels.update(id, name);
   return updatedProduct;
@@ -34,7 +34,7 @@ const updateProduct = async (id, name) => {
 
 const deleteProduct = async (id) => {
   const product = await productsModels.getById(id);
-  if (!product) throw new ApiError('Product not found', NOT_FOUND);
+  if (!product) throw new ApiError(NOT_FOUND, 'Product not found');
   await productsModels.deleteById(id);
 };
 
