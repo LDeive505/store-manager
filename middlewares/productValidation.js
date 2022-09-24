@@ -1,9 +1,15 @@
+const ApiError = require('../errors/ApiError');
+const { UNPROCESSABLE_ENTITY, BAD_REQUEST } = require('../errors/statusCodes');
+
 const productValidation = (req, res, next) => {
   const { name } = req.body;
 
-  if (!name) return res.status(400).json({ message: '"name" is required' });
+  if (!name) throw new ApiError('"name" is required', BAD_REQUEST);
   if (name.length < 5) {
-    return res.status(422).json({ message: '"name" length must be at least 5 characters long' });
+    throw new ApiError(
+      '"name" length must be at least 5 characters long',
+      UNPROCESSABLE_ENTITY,
+    );
   }
 
   next();

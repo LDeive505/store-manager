@@ -1,5 +1,5 @@
 const salesServices = require('../services/salesServices');
-const { OK, CREATED } = require('../errors/statusCodes');
+const { OK, CREATED, NO_CONTENT } = require('../errors/statusCodes');
 
 const getSales = async (req, res) => {
   const sales = await salesServices.getSales();
@@ -22,7 +22,7 @@ const createSale = async (req, res) => {
 const deleteSale = async (req, res) => {
   const { id } = req.params;
   await salesServices.deleteSale(Number(id));
-  return res.status(204).end();
+  return res.status(NO_CONTENT).end();
 };
 
 const updateSale = async (req, res) => {
