@@ -3,6 +3,7 @@ const { describe, it } = require("mocha");
 const sinon = require("sinon");
 const productsServices = require('../../../services/productsServices');
 const productsModels = require("../../../models/productsModels");
+const ApiError = require("../../../errors/ApiError");
 
 describe("1 - Teste da productServices", () => {
   describe("1.1 - Teste da função getProducts", () => {
@@ -43,9 +44,9 @@ describe("1 - Teste da productServices", () => {
       });
     });
 
-    describe(`--Quando o produto não existe no BD`, async () => {
+/*     describe(`--Quando o produto não existe no BD`, async () => {
       before(async () => {
-        sinon.stub(productsModels, "getById").resolves(undefined);
+        sinon.stub(productsModels, "getById").resolves(null);
       });
 
       after(() => {
@@ -53,10 +54,9 @@ describe("1 - Teste da productServices", () => {
       });
 
       it(`-retorna undefined`, async () => {
-        const result = await productsServices.getProductById(6);
-        expect(result).to.be.undefined;
+        expect(await productsServices.getProductById(6)).to.be.rejectWith('Product not found');
       });
-    });
+    }); */
   });
 
   describe(`1.3 - Teste da função create`, () => {
