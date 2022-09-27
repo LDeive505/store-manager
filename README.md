@@ -167,7 +167,7 @@ Para executar os testes, você deve executar o seguinte comando:
 rpm run test:mocha
 ```
 
-E para executar o estilo de codificação, execute:
+E para executar os testes de estilo do código, execute:
 
 
 ```
